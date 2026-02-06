@@ -17,6 +17,7 @@ Rules:
 - Do NOT rewrite.
 - Do NOT summarize.
 - Preserve original wording.
+- Each segment must be a complete standalone statement. If splitting compound ideas, repeat necessary words.
 - Return STRICT JSON:
 [
   {{"text": "idea 1"}},
