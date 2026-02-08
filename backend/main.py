@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from services.preprocess import preprocess
 from services.segmentation import segment_text
 from services.embedding import generate_embeddings
+from services.clustering import cluster_segments
 
 app = FastAPI()
 
@@ -17,9 +18,10 @@ async def analyze(request: AnalyzeRequest):
         cleaned = preprocess(request.text)
         segments = segment_text(cleaned)
         embedded = generate_embeddings(segments)
+        clusters = cluster_segments(embedded)
 
         return {
-            "segments": embedded
+            "segments": clusters 
         }
 
     except Exception as e:
