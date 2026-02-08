@@ -2,8 +2,9 @@
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from backend.services.preprocess import preprocess
-from backend.services.segmentation import segment_text
+from services.preprocess import preprocess
+from services.segmentation import segment_text
+from services.embedding import generate_embeddings
 
 app = FastAPI()
 
@@ -15,9 +16,10 @@ async def analyze(request: AnalyzeRequest):
     try:
         cleaned = preprocess(request.text)
         segments = segment_text(cleaned)
+        embedded = generate_embeddings(segments)
 
         return {
-            "segments": segments
+            "segments": embedded
         }
 
     except Exception as e:
