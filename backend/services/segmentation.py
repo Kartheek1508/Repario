@@ -1,13 +1,14 @@
-import os
-import google.generativeai as genai
-from dotenv import load_dotenv
 import json
+import google.generativeai as genai
+import os
+from dotenv import load_dotenv
+
+
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+model = genai.GenerativeModel("gemini-pro")
 
 load_dotenv()
-
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-
-
 
 def segment_text(text:str):
     prompt =f"""
@@ -27,7 +28,7 @@ Rules:
 Text:
 {text}
 """
-    response = client.models.generate_content(
+    response = genai.models.generate_content(
         model = "gemini-3-flash-preview",
         contents = prompt
     )
