@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+  <meta charset="UTF-8">
+  <title>Repario</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1 class = "logo">Repario</h1>
+
+    <div class="input-wrapper">
+      <textarea id="inputText" placeholder="Paste your thoughts here..."></textarea>
+      <button id="analyzeBtn">Reconstruct</button>
+  </div>
+  <div id="loader" class="loader" style="display: none;"></div>
+
+
+
+    <div class="view-toggle">
+      <button id="rawViewBtn" class="active">Raw View</button>
+      <button id="structuredViewBtn">Structured View</button>
+    </div>
+
+    <div id="rawView">
+      <h2>Raw Text</h2>
+      <div id="rawText" class="box"></div>
+
+      <h2>Segments</h2>
+      <ul id="segments" class="box"></ul>
+    </div>
+
+    <div id="structuredView" class="hidden">
+      <h2>Themes</h2>
+      <div id="themes"></div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

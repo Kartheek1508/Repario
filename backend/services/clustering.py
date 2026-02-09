@@ -1,24 +1,29 @@
-import numpy as np
 from sklearn.cluster import AgglomerativeClustering
-from sklearn.metrics.pairwise import cosine_distances
+from sklearn.preprocessing import normalize
+import numpy as np
 
-def cluster_segments(embedded_segments, distance_threshold = 0.7):
+def cluster_segments(embedded_segments, similarity_threshold=0.75):
+
     embeddings = np.array([seg["embedding"] for seg in embedded_segments])
 
-    distance_matrix = cosine_distances(embeddings)
+    embeddings = normalize(embeddings)
 
     clustering = AgglomerativeClustering(
-        metric = "precomputed",
-        linkage = "average",
-        distance_threshold=distance_threshold,
-        n_clusters=None
+        n_clusters=None,
+        metric="cosine",
+        linkage="average",
+        distance_threshold=1 - similarity_threshold
     )
 
-    labels = clustering.fit_predict(distance_matrix)
+    labels = clustering.fit_predict(embeddings)
 
     clusters = {}
-    for label,segment in zip(labels,embedded_segments):
-        label = int(label)
-        clusters.setdefault(label,[]).append(segment)
 
-    return clusters
+    for label, segment in zip(labels, embedded_segments):
+        clusters.setdefault(label, []).append(segment)
+
+    return [
+        {"cluster_id": int(label), "segments": segments}
+        for label, segments in clusters.items()
+    ]
+
