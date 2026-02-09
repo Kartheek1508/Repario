@@ -3,4 +3,4 @@ uvicorn
 numpy
 scikit-learn
 google-generativeai
-python-dotenv
+dotenv
